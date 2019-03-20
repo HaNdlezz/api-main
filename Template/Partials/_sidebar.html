@@ -1,0 +1,25 @@
+{% load static %}
+
+<ul class="nav metismenu" id="side-menu">
+    <li class="nav-header">
+        <div class="dropdown profile-element">
+                <span>
+                    <a href="#">
+                        <img class="center-block img-responsive" src="{% static 'img/Logo_Sidebar.png' %}" style="width: 150px;" />
+                    </a>
+                </span>
+                <br>
+                <h4 class="text-center" style="color:#FFF;">API - Carga de Data</h4>
+        </div>
+        <div class="logo-element">
+            CUBE+
+        </div>
+    </li>
+    <li id="index">
+        <a href="{% url 'index' %}"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Cargar Alumnos</span></a>
+    </li>
+    <li id="evaluation">
+        <a href="{% url 'carga_evaluacion_docente' %}"><i class="fa fa-users"></i> <span class="nav-label">Cargar Docentes</span></a>
+    </li>
+
+    

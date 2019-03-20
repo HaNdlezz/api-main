@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block stylesheet %}
+
+<link href="{% static 'css/plugins/jasny/jasny-bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+
+
+{% endblock stylesheet %}
+
+{% block content %}
+
+<div class="row">
+    <h3 style="background-color: #42648F;color: white; border: 1px solid #000000; height: 35px; font-size: 30px;">API - CARGA DE DATOS - DOCENTES</h3>
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title" style="background: #FF5733; color: #ffffff; border: 1px solid #000000;">
+                <h5 style="font-size:16px">Carga de Datos de Docentes ICINF - Evaluación Docente</h5>
+            </div>
+            <div class="ibox-content" style="height: 150px; border: 1px solid #000000;">
+                <form method="post" action="{% url 'upload_docente' %}" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-info btn-file">
+                            <span class="fileinput-new"><strong>Seleccione Excel</strong></span>
+                            <span class="fileinput-exists">Cambiar</span>
+                            <input type="file" name="excel"/></input>
+                        </span>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                    </div> 
+                    <hr>
+                    <div class="row">
+                        <button type="submit" disabled class="btn btn-primary btn-block"><i class="fa fa-upload"></i>Click para cargar la data en el excel seleccionado</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+        <div class="ibox">
+            <div class="ibox-title" style="background: #FF5733; color: #ffffff; border: 1px solid #000000;">
+                <h5 style="font-size: 16px;"><i class="fa fa-info"></i>Información</h5>
+            </div>
+            <div class="ibox-content" style="height: 150px; border: 1px solid #000000;">
+                <p>Espacio para cargar un archivo en formato "Excel" con la información de la evaluación docente ICINF, el archivo contiene la información de los docentes y los resultados de la evaluación de cada profesor, se puede cargar un archivo con la evaluación docente de un año en específico, o varios años a la vez.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block javascript %}
+<script src="{% static 'js/plugins/jasny/jasny-bootstrap.min.js' %}"></script>
+<script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
+{% if quantity_students != "0"  %}
+    <script>
+        swal("LISTO!", "Se han cargado {{quantity_teachers}} docentes", "info");
+    </script>
+{% endif %}
+<script>
+	$(document).ready(function(){
+        $('input:file').change(
+            function(){
+                if ($(this).val()) {
+                    $('button:submit').attr('disabled',false);
+                    // or, as has been pointed out elsewhere:
+                    // $('input:submit').removeAttr('disabled'); 
+                } 
+            }
+        );
+        $('.footable').footable();
+	});
+</script>
+{% endblock javascript %}
