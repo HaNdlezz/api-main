@@ -5,6 +5,7 @@
 <link href="{% static 'css/plugins/jasny/jasny-bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 <link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+<link href="{% static 'css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
 
 
 {% endblock stylesheet %}
@@ -48,6 +49,9 @@
             </div>
             <div class="ibox-content" style="height: 150px; border: 1px solid #000000;">
                 <p>Espacio para cargar un archivo en formato "Excel" con la información de la evaluación docente ICINF, el archivo contiene la información de los docentes y los resultados de la evaluación de cada profesor, se puede cargar un archivo con la evaluación docente de un año en específico, o varios años a la vez.</p>
+                <a href="/Static/Encuesta_Docente_2015.xlsx">
+                    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-download"></i>Descargar archivo tipo</button>
+                </a>
             </div>
         </div>
     </div>
@@ -58,9 +62,24 @@
 {% block javascript %}
 <script src="{% static 'js/plugins/jasny/jasny-bootstrap.min.js' %}"></script>
 <script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
-{% if quantity_students != "0"  %}
+{% if quantity_teachers != "0"  %}
     <script>
         swal("LISTO!", "Se han cargado {{quantity_teachers}} docentes", "info");
+    </script>
+{% endif %}
+{% if quantity_teachers == "-1"  %}
+    <script>
+        swal("Oh-oh!", "Archivo a cargar con menos columnas de las requeridas", "error");
+    </script>
+{% endif %}
+{% if quantity_teachers == "-2"  %}
+    <script>
+        swal("Oh-oh!", "Archivo a cargar con más columnas de las requeridas", "error");
+    </script>
+{% endif %}
+{% if error == "1"  %}
+    <script>
+        swal("Oh-oh!", "Evaluación docente del año del archivo ya cargado anteriormente", "error");
     </script>
 {% endif %}
 <script>

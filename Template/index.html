@@ -6,6 +6,7 @@
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 <link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
 <link href="{% static 'css/plugins/dataTables/datatables.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
 
 
 {% endblock stylesheet %}
@@ -48,6 +49,9 @@
             </div>
             <div class="ibox-content" style="height: 150px; border: 1px solid #000000;">
                 <p>Espacio para cargar un archivo en formato "Excel" con la información de los estudiantes ICINF, el archivo se conoce como 'SYASTDN' y contiene la información histórica de un estudiante que ha pasado por la carrera 'Ingeniería en Computación e Informática' de la Universidad Andrés Bello, el archivo puede contener datos de los programas: Diurno, Vespertino y Advance.</p>
+                <a href="/Static/syastdn_201815.xlsx">
+                    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-download"></i>Descargar archivo tipo</button>
+                </a>
             </div>
         </div>
     </div>
@@ -63,6 +67,16 @@
 {% if quantity_students != "0"  %}
     <script>
         swal("LISTO!", "Se han cargado {{quantity_students}} alumnos", "info");
+    </script>
+{% endif %}
+{% if quantity_students == "-1" %}
+    <script>
+        swal("Oh-oh!", "El archivo contiene menos columnas de las requeridas", "error");
+    </script>
+{% endif %}
+{% if quantity_students == "-2" %}
+    <script>
+        swal("Oh-oh!", "El archivo contiene más columnas de las requeridas", "error");
     </script>
 {% endif %}
 <script>
