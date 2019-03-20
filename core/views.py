@@ -108,8 +108,8 @@ def upload(request):
                                                 correo_personal=row[28])
                 alumno1.save()
             quantity_students+=1
-    os.system('rm *.xlsx')
-    data["quantity_students"] = str(quantity_students)
+    os.system('rm Media/*.xlsx')
+    data["quantity_students"] = str(quantity_students-1)
     return render(request, template_name, data)
 
 @login_required(login_url='/')
@@ -299,6 +299,7 @@ def upload_docente(request):
                 docente1.save()
             quantity_teachers+=1
     data["quantity_teachers"] = str(quantity_teachers-1)
+    os.system('rm Media/*.xlsx')
     return render(request, template_name, data)
 
 def search(request):
